@@ -1,0 +1,5 @@
+<app-card
+  *ngFor="let character of charactersGetDTO?.results"
+  [title]="character.name"
+  [description]="character.origin.name"
+></app-card>
