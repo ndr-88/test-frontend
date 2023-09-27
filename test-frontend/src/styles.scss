@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+h1,
+h2 {
+  font-family: "Playfair Display", serif;
+  letter-spacing: auto;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 40px;
+}
+
+h2 {
+  font-size: 36px;
+}
+
+p {
+  font-family: "Open Sans", sans-serif;
+}
