@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CharactersSandbox } from 'src/sandbox/characters.sandbox';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Rick and Morty';
+  charactersGetDTO$ = this.charactersSandbox.CharactersSelector$;
 
-  constructor() {}
+  constructor(private charactersSandbox: CharactersSandbox) {}
 }
