@@ -1,5 +1,11 @@
-<app-card
-  *ngFor="let character of charactersGetDTO?.results"
-  [title]="character.name"
-  [description]="character.origin.name"
-></app-card>
+<div class="grid grid-container mx-[78px] justify-center">
+  <app-card
+    class="grid-item"
+    *ngFor="let result of charactersGetDTO?.results"
+    [title]="result.name"
+    [subtitle]="result.species + '-' + result.gender"
+    [imgSrc]="result.image"
+    [tag]="result.status"
+    [description]="getDescription(result)"
+  ></app-card>
+</div>

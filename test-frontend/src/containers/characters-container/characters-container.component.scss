@@ -1,0 +1,8 @@
+.grid-container {
+  grid-template-columns: repeat(12, 78px);
+  gap: 32px;
+}
+
+.grid-item {
+  grid-column: span 4;
+}
