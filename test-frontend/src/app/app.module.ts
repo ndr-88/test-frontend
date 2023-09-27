@@ -5,6 +5,7 @@ import { CharactersModule } from 'src/modules/characters/characters.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
     AppRoutingModule,
     CharactersModule,
     StoreModule.forRoot({}, {}),
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
