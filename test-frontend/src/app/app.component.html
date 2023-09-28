@@ -1,3 +1,9 @@
+<app-header
+  [prevPage]="(info$ | async)?.prev"
+  [nextPage]="(info$ | async)?.next"
+  [total]="(info$ | async)?.pages"
+></app-header>
+
 <app-characters-container
-  [charactersGetDTO]="charactersGetDTO$ | async"
+  [charactersGetDTO]="charactersGetDTO$ | async | searchTerm : searchValue"
 ></app-characters-container>
