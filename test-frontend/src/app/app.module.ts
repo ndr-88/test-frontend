@@ -8,10 +8,9 @@ import { CharactersModule } from 'src/modules/characters/characters.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { metaReducers, reducers } from './reducers';
-import { SearchTermPipe } from './search-term.pipe';
 
 @NgModule({
-  declarations: [AppComponent, SearchTermPipe],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
