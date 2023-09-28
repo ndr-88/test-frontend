@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { cloneDeep } from 'lodash';
 import { Subject, takeUntil } from 'rxjs';
 import { CharactersSandbox } from 'src/sandbox/characters.sandbox';
 import { SearchService } from 'src/services/search.service';
@@ -14,6 +15,8 @@ export class AppComponent implements OnDestroy {
   info$ = this.charactersSandbox.info$;
   searchValue: string;
   destroy$: Subject<void> = new Subject<void>();
+  filterValues: Map<string, string> = new Map<string, string>();
+  showFilters: boolean;
 
   constructor(
     private charactersSandbox: CharactersSandbox,
@@ -24,9 +27,18 @@ export class AppComponent implements OnDestroy {
       .subscribe((text) => {
         this.searchValue = text;
       });
+
+    this.searchService.emitFilterValuesObs.subscribe((res) => {
+      console.log(res);
+      this.filterValues = cloneDeep(res);
+    });
   }
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  applyBlurIfShowFilters($event: boolean) {
+    this.showFilters = $event;
   }
 }
