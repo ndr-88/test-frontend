@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.inputSubject.pipe(throttleTime(500)).subscribe((text) => {
-      console.log('Input completato:', text);
       this.searchService.emitSearchValue.next(text);
     });
   }
