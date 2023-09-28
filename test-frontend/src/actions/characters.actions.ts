@@ -8,5 +8,6 @@ export const CharactersActions = createActionGroup({
     'Load Characters Success': props<{ charactersGetDTO: CharacterGetDTO }>(),
     'Load Characters Failure': props<{ error: unknown }>(),
     'Update Characters': props<{ characters: Result[] }>(),
+    'Load More Characters': props<{ characters: Result[] }>(),
   },
 });
