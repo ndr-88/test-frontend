@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
-import { CharactersActions } from 'src/app/actions/characters.actions';
-import { CharactersState } from 'src/app/reducers/characters.reducer';
-import * as CharactersSelectors from 'src/app/selectors/characters.selectors';
+import { CharactersActions } from 'src/actions/characters.actions';
 import { Result } from 'src/models/result';
+import { CharactersState } from 'src/reducers/characters.reducer';
+import * as CharactersSelectors from 'src/selectors/characters.selectors';
 import { CharactersService } from 'src/services/characters.service';
 
 @Injectable()
