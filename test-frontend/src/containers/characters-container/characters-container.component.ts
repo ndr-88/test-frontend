@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { Result } from 'src/models/result';
 import { CharactersSandbox } from 'src/sandbox/characters.sandbox';
 
@@ -27,6 +27,16 @@ export class CharactersContainerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  onScroll() {
+    this.charactersSandbox.info$
+      .pipe(takeUntil(this.destroy$), debounceTime(200))
+      .subscribe((info) => {
+        if (info.next) {
+          this.charactersSandbox.scrollCharacters(info.next);
+        }
+      });
   }
 
   getDescription(result: Result): string {

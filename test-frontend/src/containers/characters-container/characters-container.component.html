@@ -1,4 +1,9 @@
-<div class="grid grid-container mx-[78px] justify-center pt-[78px] pb-[60px]">
+<div
+  class="grid grid-container mx-[78px] justify-center pt-[78px] pb-[60px]"
+  infiniteScroll
+  [scrollWindow]="true"
+  (scrolled)="onScroll()"
+>
   <ng-container *ngIf="charactersGetDTO?.length">
     <app-card
       class="grid-item"

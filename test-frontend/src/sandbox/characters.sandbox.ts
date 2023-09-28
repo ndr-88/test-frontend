@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { CharactersActions } from 'src/actions/characters.actions';
 import { Result } from 'src/models/result';
 import { CharactersState } from 'src/reducers/characters.reducer';
@@ -45,6 +45,19 @@ export class CharactersSandbox implements OnDestroy {
           );
         });
     }
+  }
+
+  scrollCharacters(url: string) {
+    this.charactersService
+      .getCharacters(url)
+      .pipe(takeUntil(this.destroy$), take(1))
+      .subscribe((charactersGetDTO) => {
+        this.store.dispatch(
+          CharactersActions.loadMoreCharacters({
+            characters: charactersGetDTO.results,
+          })
+        );
+      });
   }
 
   updateCharacters(characters: Result[]) {

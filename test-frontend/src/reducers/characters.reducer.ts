@@ -39,5 +39,15 @@ export const charactersReducer = createReducer(
         results: action.characters,
       },
     };
+  }),
+
+  on(CharactersActions.loadMoreCharacters, (state, action): CharactersState => {
+    return {
+      ...state,
+      charactersGetDTO: {
+        ...state.charactersGetDTO,
+        results: [...state.charactersGetDTO.results, ...action.characters],
+      },
+    };
   })
 );
