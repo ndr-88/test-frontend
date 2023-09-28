@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CharacterGetDTO } from 'src/models/characterGetDTO';
 
 @Injectable({
@@ -8,9 +8,12 @@ import { CharacterGetDTO } from 'src/models/characterGetDTO';
 })
 export class CharactersService {
   url: string = 'https://rickandmortyapi.com/api/character';
+  emitPage: Subject<string> = new Subject<string>();
+
   constructor(private http: HttpClient) {}
 
-  getCharacters(): Observable<CharacterGetDTO> {
-    return this.http.get<CharacterGetDTO>(this.url);
+  getCharacters(url?: string): Observable<CharacterGetDTO> {
+    const finalUrl = url !== undefined ? url : this.url;
+    return this.http.get<CharacterGetDTO>(finalUrl);
   }
 }
