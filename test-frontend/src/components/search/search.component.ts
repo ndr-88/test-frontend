@@ -2,10 +2,11 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Filters } from 'src/models/filters';
 import { gender } from 'src/models/gender';
 import { species } from 'src/models/species';
@@ -17,7 +18,7 @@ import { SearchService } from 'src/services/search.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   private inputSubject = new Subject<string>();
   Gender = gender;
   Species = species;
@@ -26,6 +27,7 @@ export class SearchComponent implements OnInit {
   speciesValue: string;
   statusValue: string;
   showFilters: boolean = false;
+  destroy$: Subject<void> = new Subject<void>();
   filterMap: Map<Filters, string> = new Map<Filters, string>();
   @Output() emitShowFilters = new EventEmitter<boolean>();
 
@@ -35,9 +37,14 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.inputSubject.pipe().subscribe((text) => {
+    this.inputSubject.pipe(takeUntil(this.destroy$)).subscribe((text) => {
       this.searchService.emitSearchValue.next(text);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onInput(event: any) {

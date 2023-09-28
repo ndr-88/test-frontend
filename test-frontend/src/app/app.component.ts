@@ -28,10 +28,12 @@ export class AppComponent implements OnDestroy {
         this.searchValue = text;
       });
 
-    this.searchService.emitFilterValuesObs.subscribe((res) => {
-      console.log(res);
-      this.filterValues = cloneDeep(res);
-    });
+    this.searchService.emitFilterValuesObs
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((res) => {
+        console.log(res);
+        this.filterValues = cloneDeep(res);
+      });
   }
   ngOnDestroy(): void {
     this.destroy$.next();

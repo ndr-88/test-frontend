@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { CharactersActions } from 'src/actions/characters.actions';
 import { Result } from 'src/models/result';
 import { CharactersState } from 'src/reducers/characters.reducer';
@@ -29,17 +29,21 @@ export class CharactersSandbox implements OnDestroy {
     if (url) {
       this.charactersService
         .getCharacters(url)
+        .pipe(takeUntil(this.destroy$))
         .subscribe((charactersGetDTO) => {
           this.store.dispatch(
             CharactersActions.loadCharactersSuccess({ charactersGetDTO })
           );
         });
     } else {
-      this.charactersService.getCharacters().subscribe((charactersGetDTO) => {
-        this.store.dispatch(
-          CharactersActions.loadCharactersSuccess({ charactersGetDTO })
-        );
-      });
+      this.charactersService
+        .getCharacters()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((charactersGetDTO) => {
+          this.store.dispatch(
+            CharactersActions.loadCharactersSuccess({ charactersGetDTO })
+          );
+        });
     }
   }
 
