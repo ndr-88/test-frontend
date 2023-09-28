@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
-import { SharedModule } from 'src/components/shared/shared.module';
-import { CharactersModule } from 'src/modules/characters/characters.module';
+import { CharactersModule } from 'src/modules/characters.module';
+import { SharedModule } from 'src/modules/shared.module';
+import { metaReducers, reducers } from '../reducers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { metaReducers, reducers } from './reducers';
 
 @NgModule({
   declarations: [AppComponent],
