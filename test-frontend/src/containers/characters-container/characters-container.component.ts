@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CharacterGetDTO } from 'src/models/characterGetDTO';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Result } from 'src/models/result';
 import { CharactersSandbox } from 'src/sandbox/characters.sandbox';
 
@@ -8,13 +8,25 @@ import { CharactersSandbox } from 'src/sandbox/characters.sandbox';
   templateUrl: './characters-container.component.html',
   styleUrls: ['./characters-container.component.scss'],
 })
-export class CharactersContainerComponent implements OnInit {
-  @Input() charactersGetDTO: CharacterGetDTO;
+export class CharactersContainerComponent implements OnInit, OnDestroy {
+  @Input() charactersGetDTO: Result[] = [];
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private charactersSandbox: CharactersSandbox) {}
 
   ngOnInit(): void {
     this.charactersSandbox.getCharacters();
+
+    this.charactersSandbox.emitPageObs
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((url) => {
+        this.charactersSandbox.getCharacters(url);
+      });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   getDescription(result: Result): string {
