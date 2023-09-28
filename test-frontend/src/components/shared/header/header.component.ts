@@ -1,5 +1,11 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Subject, throttleTime } from 'rxjs';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { CharactersSandbox } from 'src/sandbox/characters.sandbox';
 import { SearchService } from 'src/services/search.service';
 
@@ -12,19 +18,15 @@ export class HeaderComponent implements OnInit, OnChanges {
   @Input() prevPage: string;
   @Input() nextPage: string;
   @Input() total: number;
+  @Output() emitShowFilters = new EventEmitter<boolean>();
   pageNr: number;
-  private inputSubject = new Subject<string>();
 
   constructor(
     private charactersSandbox: CharactersSandbox,
     private searchService: SearchService
   ) {}
 
-  ngOnInit() {
-    this.inputSubject.pipe(throttleTime(500)).subscribe((text) => {
-      this.searchService.emitSearchValue.next(text);
-    });
-  }
+  ngOnInit() {}
 
   ngOnChanges() {
     if (this.nextPage !== null) {
@@ -69,8 +71,7 @@ export class HeaderComponent implements OnInit, OnChanges {
     return pageNumber - 1;
   }
 
-  onInput(event: any) {
-    const inputText = event.target.value;
-    this.inputSubject.next(inputText);
+  showFilters($event: boolean) {
+    this.emitShowFilters.emit($event);
   }
 }
