@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-export enum PillStates {
-  ALIVE = 'alive',
-  DEAD = 'dead',
-  UNKNOWN = 'unknown',
-}
+import { PillStates } from 'src/models/pills';
 
 @Component({
   selector: 'app-pill',
