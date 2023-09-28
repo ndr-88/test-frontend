@@ -4,7 +4,7 @@
   (click)="toggleActive()"
 >
   <p class="font-bold" [ngClass]="active ? 'text-white' : 'text-filter'">
-    {{ name }}
+    {{ name?.toUpperCase() }}
   </p>
   <img
     *ngIf="active"
