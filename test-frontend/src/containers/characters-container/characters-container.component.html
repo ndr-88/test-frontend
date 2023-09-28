@@ -1,7 +1,7 @@
-<div class="grid grid-container mx-[78px] justify-center">
+<div class="grid grid-container mx-[78px] justify-center pt-[280px] pb-[60px]">
   <app-card
     class="grid-item"
-    *ngFor="let result of charactersGetDTO?.results"
+    *ngFor="let result of charactersGetDTO"
     [title]="result.name"
     [subtitle]="result.species + '-' + result.gender"
     [imgSrc]="result.image"
