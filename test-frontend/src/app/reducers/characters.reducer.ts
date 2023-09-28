@@ -30,5 +30,14 @@ export const charactersReducer = createReducer(
         charactersGetDTO: action.charactersGetDTO,
       };
     }
-  )
+  ),
+  on(CharactersActions.updateCharacters, (state, action): CharactersState => {
+    return {
+      ...state,
+      charactersGetDTO: {
+        ...state.charactersGetDTO,
+        results: action.characters,
+      },
+    };
+  })
 );
