@@ -28,7 +28,11 @@ export class HeaderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.pageNr = this.getPageNumberFromUrl(this.nextPage);
+    if (this.nextPage !== null) {
+      this.pageNr = this.getPageNumberFromUrl(this.nextPage);
+    } else {
+      this.pageNr = this.total;
+    }
   }
 
   decreasePage() {
