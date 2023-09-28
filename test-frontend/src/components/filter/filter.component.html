@@ -3,15 +3,17 @@
   [ngClass]="active ? 'bg-filter' : 'bg-white'"
   (click)="toggleActive()"
 >
-  <p class="font-bold" [ngClass]="active ? 'text-white' : 'text-filter'">
-    {{ name?.toUpperCase() }}
-  </p>
-  <img
-    *ngIf="active"
-    class="cursor-pointer"
-    src="assets/Vector.svg"
-    alt=""
-    width="10"
-    height="10"
-  />
+  <div class="pl-[20px] pr-[16px] flex items-center">
+    <p class="font-bold mr-2" [ngClass]="active ? 'text-white' : 'text-filter'">
+      {{ name?.toUpperCase() }}
+    </p>
+    <img
+      *ngIf="active"
+      class="cursor-pointer"
+      src="assets/Vector.svg"
+      alt=""
+      width="10"
+      height="10"
+    />
+  </div>
 </div>
