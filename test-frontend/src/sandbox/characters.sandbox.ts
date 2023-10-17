@@ -55,6 +55,7 @@ export class CharactersSandbox implements OnDestroy {
         this.store.dispatch(
           CharactersActions.loadMoreCharacters({
             characters: charactersGetDTO.results,
+            info: charactersGetDTO.info,
           })
         );
       });

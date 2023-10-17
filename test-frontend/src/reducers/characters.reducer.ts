@@ -45,8 +45,8 @@ export const charactersReducer = createReducer(
     return {
       ...state,
       charactersGetDTO: {
-        ...state.charactersGetDTO,
         results: [...state.charactersGetDTO.results, ...action.characters],
+        info: action.info,
       },
     };
   })
